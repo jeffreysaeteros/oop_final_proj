@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-
 public class MainGUI {
     private JFrame frame;
     private CardLayout cardLayout;
@@ -26,41 +25,48 @@ public class MainGUI {
         initializeGUI();
     }
 
-
     private void initializeGUI() {
         frame = new JFrame("Playlist Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
 
-        // mainPage: 3 buttons --> createPlaylistButton, searchPlaylistButton, viewPlaylistsButton
+        // mainPage: 3 buttons --> createPlaylistButton, searchPlaylistButton,
+        // viewPlaylistsButton
         JPanel mainPage = new JPanel();
         JButton createPlaylistButton = new JButton("Create Playlist");
         JButton searchPlaylistButton = new JButton("Search Playlist");
         JButton viewPlaylistsButton = new JButton("View Playlists");
+        JButton exitButton = new JButton("Exit");
         mainPage.add(createPlaylistButton);
         mainPage.add(searchPlaylistButton);
         mainPage.add(viewPlaylistsButton);
+        mainPage.add(exitButton);
 
         // addSongCard: 1 Main Panel that has 3 components (since it is a BorderLayout)
-            // 3 components --> headerLabel, viewSongPanel, buttonPanel
+        // 3 components --> headerLabel, viewSongPanel, buttonPanel
         JPanel addSongCard = new JPanel(new BorderLayout());
 
-        // Component -->  headerLabel: At the top (BorderLayout.NORTH) of the addSongCard panel
-            // In this component, contains the label which is the currentPlaylistName we are adding our deleting songs from
+        // Component --> headerLabel: At the top (BorderLayout.NORTH) of the addSongCard
+        // panel
+        // In this component, contains the label which is the currentPlaylistName we are
+        // adding our deleting songs from
         headerLabel = new JLabel("", SwingConstants.CENTER);
         addSongCard.add(headerLabel, BorderLayout.NORTH);
 
-        // Component --> viewSongsPanel: At the center (BorderLayout.CENTER) of the addSongCard panel
-            // In this component, all the songs in the current playlist are shown
+        // Component --> viewSongsPanel: At the center (BorderLayout.CENTER) of the
+        // addSongCard panel
+        // In this component, all the songs in the current playlist are shown
         listModel = new DefaultListModel<>();
         JList<String> songList = new JList<>(listModel);
         JPanel viewSongsPanel = new JPanel(new BorderLayout());
         viewSongsPanel.add(new JScrollPane(songList), BorderLayout.CENTER);
         addSongCard.add(viewSongsPanel, BorderLayout.CENTER);
 
-        // Component --> buttonPanel: At the bottom (BorderLayout.SOUTH) of the addSongCard panel
-            // In this component --> 3 buttons, addSongButton, backToMainPageButton, deleteSongButton
+        // Component --> buttonPanel: At the bottom (BorderLayout.SOUTH) of the
+        // addSongCard panel
+        // In this component --> 3 buttons, addSongButton, backToMainPageButton,
+        // deleteSongButton
         JButton addSongButton = new JButton("Add Song to Playlist");
         JButton backToMainPageButton = new JButton("Back");
         JButton deleteSongButton = new JButton("Delete Song");
@@ -74,8 +80,10 @@ public class MainGUI {
         JPanel searchPanel = new JPanel();
         JTextField searchField = new JTextField(10);
         JButton searchButton = new JButton("Search");
+        JButton backToMainFromSearchButton = new JButton("Back");
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
+        searchPanel.add(backToMainFromSearchButton);
 
         // viewPlaylistsPanel: to view all playlists in our database
         JPanel viewPlaylistsPanel = new JPanel(new BorderLayout());
@@ -91,26 +99,31 @@ public class MainGUI {
         viewPlaylistButtonsPanel.add(backToMainFromViewPlaylist);
         viewPlaylistsPanel.add(viewPlaylistButtonsPanel, BorderLayout.SOUTH);
 
-
-        // Here are the panels that we have available to us, and we add each panel to our CardLayout cards
+        // Here are the panels that we have available to us, and we add each panel to
+        // our CardLayout cards
         cards.add(mainPage, MAIN_PAGE_PANEL);
         cards.add(addSongCard, ADD_SONG_PANEL);
         cards.add(searchPanel, SEARCH_PANEL);
         cards.add(viewPlaylistsPanel, VIEW_PANEL);
 
-
         // button action listeners
+        exitButton.addActionListener(e -> {
+            System.exit(0);
+        });
         createPlaylistButton.addActionListener(e -> {
             createPlaylist();
         });
-        backToMainPageButton.addActionListener(e->{
+        backToMainPageButton.addActionListener(e -> {
             cardLayout.show(cards, MAIN_PAGE_PANEL);
         });
-        backToMainFromViewPlaylist.addActionListener(e->{
+        backToMainFromViewPlaylist.addActionListener(e -> {
             cardLayout.show(cards, MAIN_PAGE_PANEL);
         });
-        addSongButton.addActionListener(e->{
+        addSongButton.addActionListener(e -> {
             addSongToPlaylist();
+        });
+        backToMainFromSearchButton.addActionListener(e -> {
+            cardLayout.show(cards, MAIN_PAGE_PANEL);
         });
         searchPlaylistButton.addActionListener(e -> {
             cardLayout.show(cards, SEARCH_PANEL);
@@ -180,12 +193,12 @@ public class MainGUI {
         frame.setVisible(true);
     }
 
-
     // Method to create a playlist
     private void createPlaylist() {
         String name = JOptionPane.showInputDialog(frame, "Enter Playlist Name:");
         if (name != null && !name.trim().isEmpty()) {
-            // Search first to prevent duplicates -> only create a new playlist if it doesn't exist
+            // Search first to prevent duplicates -> only create a new playlist if it
+            // doesn't exist
             Playlist existingPlaylist = playlistManager.searchPlaylist(name);
             if (existingPlaylist == null) {
                 currPlaylistName = playlistManager.createPlaylist(name);
@@ -198,7 +211,6 @@ public class MainGUI {
             }
         }
     }
-
 
     private void addSongToPlaylist() {
         String songName = JOptionPane.showInputDialog(frame, "Enter Song Name:");
@@ -217,7 +229,6 @@ public class MainGUI {
         }
     }
 
-
     private void displaySongsInPlaylist(String playlistName) {
         List<Song> songs = playlistManager.getSongsFromPlaylist(playlistName);
         listModel.clear();
@@ -229,11 +240,10 @@ public class MainGUI {
     private void viewPlaylists() {
         List<Playlist> playlists = playlistManager.getAllPlaylists();
         forViewPlaylist.clear();
-        for(Playlist playlist:playlists){
+        for (Playlist playlist : playlists) {
             forViewPlaylist.addElement(playlist.getName());
         }
     }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MainGUI::new);
