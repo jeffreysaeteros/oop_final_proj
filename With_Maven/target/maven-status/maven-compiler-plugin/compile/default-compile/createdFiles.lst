@@ -1,5 +1,5 @@
 org/example/Main.class
-org/example/SongManager.class
+org/example/MainGUI.class
 org/example/Connection.class
 org/example/Playlist.class
 org/example/Song.class
