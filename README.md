@@ -25,3 +25,5 @@ A simple playlist system where you will be able to create, view, or delete playl
 ```sh
 mvn compile exec:java -Dexec.mainClass="org.example.MainGUI" -Dmongodb.uri="mongodb+srv://forGrader:grader@cluster0.e6hjphf.mongodb.net/?retryWrites=true&w=majority" -e
 ```
+
+CHANGGGGES
