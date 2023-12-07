@@ -17,7 +17,7 @@ A simple playlist system where you will be able to create, view, or delete playl
       - Add to it to your PATH: ```export PATH=/your/path/to/apache-maven-3.9.5/bin:$PATH```
     - Run ```mvn --version``` to confirm it is downloaded correctly
 
-- Go into `/With_Maven` directory
+- Go into `/With_Maven` directory: ```cd With_Maven```
 
 - Run ```mvn clean```
 - Finally, run.
