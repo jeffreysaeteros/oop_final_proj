@@ -34,14 +34,27 @@ public class MainGUI {
         // mainPage: 3 buttons --> createPlaylistButton, searchPlaylistButton,
         // viewPlaylistsButton
         JPanel mainPage = new JPanel();
+        mainPage.setLayout(null);
+
+        // create the buttons
         JButton createPlaylistButton = new JButton("Create Playlist");
         JButton searchPlaylistButton = new JButton("Search Playlist");
         JButton viewPlaylistsButton = new JButton("View Playlists");
         JButton exitButton = new JButton("Exit");
+
+        // set the buttons (hard code, ill try to make it adjust with screen size)
+        createPlaylistButton.setBounds(170, 90, 150, 50);
+        searchPlaylistButton.setBounds(170, 180, 150, 50);
+        viewPlaylistsButton.setBounds(170, 270, 150, 50);
+        exitButton.setBounds(200, 380, 90, 40);
+
         mainPage.add(createPlaylistButton);
         mainPage.add(searchPlaylistButton);
         mainPage.add(viewPlaylistsButton);
         mainPage.add(exitButton);
+
+        // adding the color to mainPage
+        mainPage.setBackground(Color.pink);
 
         // addSongCard: 1 Main Panel that has 3 components (since it is a BorderLayout)
         // 3 components --> headerLabel, viewSongPanel, buttonPanel
@@ -78,9 +91,12 @@ public class MainGUI {
 
         // searchPanel: 2 components --> searchField, searchButton
         JPanel searchPanel = new JPanel();
-        JTextField searchField = new JTextField(10);
+        JTextField searchField = new JTextField(15);
         JButton searchButton = new JButton("Search");
         JButton backToMainFromSearchButton = new JButton("Back");
+
+        searchPanel.setBackground(Color.pink);
+
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
         searchPanel.add(backToMainFromSearchButton);
@@ -113,6 +129,7 @@ public class MainGUI {
         createPlaylistButton.addActionListener(e -> {
             createPlaylist();
         });
+
         backToMainPageButton.addActionListener(e -> {
             cardLayout.show(cards, MAIN_PAGE_PANEL);
         });
@@ -248,4 +265,5 @@ public class MainGUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MainGUI::new);
     }
+
 }
