@@ -212,13 +212,13 @@ public class MainGUI {
 
     // Method to create a playlist
     private void createPlaylist() {
-        String name = JOptionPane.showInputDialog(frame, "Enter Playlist Name:");
-        if (name != null && !name.trim().isEmpty()) {
+        String playlistNamePane = JOptionPane.showInputDialog(frame, "Enter Playlist Name:");
+        if (playlistNamePane != null && !playlistNamePane.trim().isEmpty()) {
             // Search first to prevent duplicates -> only create a new playlist if it
             // doesn't exist
-            Playlist existingPlaylist = playlistManager.searchPlaylist(name);
+            Playlist existingPlaylist = playlistManager.searchPlaylist(playlistNamePane);
             if (existingPlaylist == null) {
-                currPlaylistName = playlistManager.createPlaylist(name);
+                currPlaylistName = playlistManager.createPlaylist(playlistNamePane);
                 JOptionPane.showMessageDialog(frame, "Playlist created successfully!");
                 headerLabel.setText(currPlaylistName);
                 displaySongsInPlaylist(currPlaylistName);

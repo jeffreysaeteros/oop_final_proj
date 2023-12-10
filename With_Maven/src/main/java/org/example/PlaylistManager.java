@@ -6,18 +6,15 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import java.util.*;
 
-
 public class PlaylistManager {
     private List<Playlist> playlists;
     private static final String URI = "mongodb+srv://forGrader:grader@cluster0.e6hjphf.mongodb.net/?retryWrites=true&w=majority";
     private static final String DATABASE = "PlaylistDB";
     private static final String COLLECTION = "Playlists";
 
-
     public PlaylistManager() {
         this.playlists = new ArrayList<>();
     }
-
 
     // create new playlist
     public String createPlaylist(String name) {
@@ -56,7 +53,6 @@ public class PlaylistManager {
         return songs;
     }
 
-
     public Playlist searchPlaylist(String playlistName) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE);
@@ -87,7 +83,6 @@ public class PlaylistManager {
         return null;
     }
 
-
     private Playlist documentToPlaylist(Document doc) {
         Playlist playlist = new Playlist(doc.getString("name"));
 
@@ -103,7 +98,6 @@ public class PlaylistManager {
         return playlist;
     }
 
-
     public void deleteSongFromPlaylist(String playlistName, String songName) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE);
@@ -114,7 +108,6 @@ public class PlaylistManager {
             collection.updateOne(Filters.eq("name", playlistName), updateOperation);
         }
     }
-
 
     public List<Playlist> getAllPlaylists() {
         List<Playlist> allPlaylists = new ArrayList<>();
@@ -132,7 +125,6 @@ public class PlaylistManager {
         return allPlaylists;
     }
 
-
     public void deletePlaylist(String playlistName) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE);
@@ -142,4 +134,3 @@ public class PlaylistManager {
     }
 
 }
-
